@@ -1,0 +1,24 @@
+# roles_index:
+#     path:     /
+#     defaults: { _controller: "UsuariosBundle:Roles:index" }
+#     methods:  GET
+
+# roles_show:
+#     path:     /{id}/show
+#     defaults: { _controller: "UsuariosBundle:Roles:show" }
+#     methods:  GET
+
+roles_index:
+    path:     /
+    defaults: { _controller: "UsuariosBundle:Roles:index" }
+    methods:  GET
+
+roles_show:
+    path:     /{id}/show
+    defaults: { _controller: "UsuariosBundle:Roles:show" }
+    methods:  GET
+
+roles_create:
+    path: /create
+    defaults: { _controller: "UsuariosBundle:Roles:create"}
+    methods:  [GET, POST]

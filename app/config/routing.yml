@@ -1,0 +1,13 @@
+usuarios:
+    resource: "@UsuariosBundle/Resources/config/routing.yml"
+    prefix:   /users
+
+
+usuarios_roles:
+    resource: "@UsuariosBundle/Resources/config/routing/roles.yml"
+    prefix:   /roles
+
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

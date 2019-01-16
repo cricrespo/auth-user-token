@@ -1,0 +1,78 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+        UsuariosBundle\Entity\Users: bcrypt
+        Symfony\Component\Security\Core\User\User: plaintext
+        
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        in_memory:
+             memory: ~
+        in_db:
+            entity:
+                class: UsuariosBundle:Users
+                # the property to query by - e.g. username, email, etc
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        users:
+            pattern: ^/users
+            anonymous: ~
+            provider: in_db
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: logout
+                target: users_index
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+        roles:
+            pattern: ^/roles
+            anonymous: ~
+            provider: in_db
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: logout
+                target: roles_index
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+        default:
+            anonymous: ~
+            guard:
+                authenticators:
+                    - fb_authenticator
+            logout:
+                path:   /logout
+                target: /
+
+        main:
+            anonymous: ~
+
+
+
+    access_control:
+    - { path: ^/fb-access, roles: ROLE_ADMIN }
+    - { path: ^/users/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/users, roles: ROLE_USER}
+    - { path: ^/users, roles: ROLE_ADMIN }
+    - { path: ^/roles, roles: ROLE_ADMIN }

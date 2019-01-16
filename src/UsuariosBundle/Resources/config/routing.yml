@@ -1,0 +1,43 @@
+# usuarios_users:
+#     resource: "@UsuariosBundle/Resources/config/routing/users.yml"
+#     prefix:   /users
+
+# usuarios_homepage:
+#     path:     /
+#     defaults: { _controller: UsuariosBundle:Usuarios:index }
+
+
+users_index:
+    path:     /
+    defaults: { _controller: "UsuariosBundle:Users:index" }
+    methods:  GET
+
+login:
+    path: login
+    defaults: { _controller:UsuariosBundle:Users:login }
+
+logout:
+    path: /logout
+
+    
+users_show:
+    path:     /{id}/show
+    defaults: { _controller: "UsuariosBundle:Users:show" }
+    methods:  GET
+
+users_new:
+    path:     /new
+    defaults: { _controller: "UsuariosBundle:Users:new" }
+    methods:  [GET, POST]
+
+users_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UsuariosBundle:Users:edit" }
+    methods:  [GET, POST]
+
+users_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UsuariosBundle:Users:delete" }
+    methods:  DELETE
+
+
